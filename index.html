@@ -7,55 +7,37 @@
 </head>
 <body>
     <h1>فرم ثبت پروژه</h1>
-    <form id="projectForm">
-        <label for="name">نام:</label>
-        <input type="text" id="name" name="name" required><br><br>
+    <form id="projectForm" onsubmit="redirectToTelegram(event)">
+        <label for="projectName">نام پروژه:</label><br>
+        <input type="text" id="projectName" name="projectName" required><br><br>
 
-        <label for="email">ایمیل:</label>
-        <input type="email" id="email" name="email" required><br><br>
+        <label for="projectDescription">توضیحات پروژه:</label><br>
+        <textarea id="projectDescription" name="projectDescription" rows="4" cols="50" required></textarea><br><br>
 
-        <label for="project">توضیحات پروژه:</label>
-        <textarea id="project" name="project" required></textarea><br><br>
+        <label for="contactInfo">اطلاعات تماس:</label><br>
+        <input type="text" id="contactInfo" name="contactInfo" required><br><br>
 
-        <button type="submit">ثبت پروژه</button>
+        <button type="submit">ارسال به تلگرام</button>
     </form>
 
     <script>
-        document.getElementById('projectForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // جلوگیری از ریفرش صفحه
+        function redirectToTelegram(event) {
+            event.preventDefault(); // جلوگیری از ارسال فرم به صورت عادی
 
-            // گرفتن مقادیر فرم
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const project = document.getElementById('project').value;
+            // دریافت اطلاعات فرم
+            const projectName = document.getElementById('projectName').value;
+            const projectDescription = document.getElementById('projectDescription').value;
+            const contactInfo = document.getElementById('contactInfo').value;
 
-            // ایجاد متن پیام
-            const message = `نام: ${name}\nایمیل: ${email}\nتوضیحات پروژه: ${project}`;
+            // ساخت متن پیام
+            const message = `نام پروژه: ${projectName}\nتوضیحات پروژه: ${projectDescription}\nاطلاعات تماس: ${contactInfo}`;
 
-            // ارسال پیام به تلگرام
-            fetch(`https://api.telegram.org/bot<YourBotToken>/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    chat_id: '<YourChatID>',
-                    text: message
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    alert('پروژه با موفقیت ثبت شد!');
-                } else {
-                    alert('خطا در ثبت پروژه!');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('خطا در ارسال پیام!');
-            });
-        });
+            // ساخت لینک تلگرام
+            const telegramLink = `tg://msg?text=${encodeURIComponent(message)}`;
+
+            // هدایت کاربر به صفحه چت تلگرام
+            window.location.href = telegramLink;
+        }
     </script>
 </body>
 </html>
