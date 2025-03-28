@@ -32,13 +32,13 @@
             // ساخت متن پیام
             const message = `نام پروژه: ${projectName}\nتوضیحات پروژه: ${projectDescription}\nاطلاعات تماس: ${contactInfo}`;
 
-            // نام کاربری تلگرام شما (بدون @)
-            const telegramUsername = "farzinfarazmand";
+            // نام کاربری تلگرام شما
+            const telegramUsername = "farzinfarazmand"; // نام کاربری خود را وارد کنید
 
-            // ساخت لینک با پروتکل tg://
-            const telegramLink = `tg://msg?text=${encodeURIComponent(message)}&to=${telegramUsername}`;
+            // ساخت لینک تلگرام
+            const telegramLink = `https://t.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
 
-            // هدایت کاربر به اپلیکیشن تلگرام
+            // هدایت کاربر به صفحه چت تلگرام
             window.location.href = telegramLink;
         }
     </script>
