@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت پروژه</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">فرم ثبت پروژه</h1>
+    <form id="projectForm">
+        <label for="name">نام:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">ایمیل:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="projectDetails">جزئیات پروژه:</label>
+        <textarea id="projectDetails" name="projectDetails" rows="4" required></textarea>
+
+        <button type="submit">ارسال</button>
+    </form>
+
+    <script>
+        document.getElementById('projectForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // جلوگیری از رفرش شدن صفحه
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const projectDetails = document.getElementById('projectDetails').value;
+
+            const botToken = '7676399409:AAG_scJxWy_n6mhFihtghh1Ggc83JOJpE7c'; // توکن ربات تلگرام خود را قرار دهید
+            const chatId = '@faraztechno'; // شناسه چت تلگرام خود را قرار دهید
+            const message = `نام: ${name}\nایمیل: ${email}\nجزئیات پروژه:\n${projectDetails}`;
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert('پیام شما با موفقیت ارسال شد!');
+                } else {
+                    alert('خطا در ارسال پیام!');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('خطا در ارسال پیام!');
+            });
+        });
+    </script>
+</body>
+</html>
