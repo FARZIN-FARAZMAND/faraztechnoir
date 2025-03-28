@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ثبت پروژه</title>
+    <title>ارسال پیام به تلگرام</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -61,18 +60,19 @@
             const email = document.getElementById('email').value;
             const projectDetails = document.getElementById('projectDetails').value;
 
-            const botToken = '7505831992:AAFRwsXCmWn30Ys8MH6mRS9DqlznfdsxuYg'; // توکن ربات تلگرام خود را قرار دهید
-            const chatId = '@faraztechno'; // شناسه چت تلگرام خود را قرار دهید
+            const botToken = '7505831992:AAFRwsXCmWn30Ys8MH6mRS9DqlznfdsxuYg'; // توکن ربات شما
+            const chatId = '123456789'; // شناسه چت خود را قرار دهید
             const message = `نام: ${name}\nایمیل: ${email}\nجزئیات پروژه:\n${projectDetails}`;
 
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            fetch('https://your-proxy-server-url/webhook', { // URL سرور پروکسی
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message
+                    botToken: botToken,
+                    chatId: chatId,
+                    message: message
                 })
             })
             .then(response => response.json())
