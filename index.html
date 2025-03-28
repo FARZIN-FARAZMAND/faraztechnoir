@@ -4,33 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>فرم ثبت پروژه</title>
+    <style>
+        /* طراحی حرفه‌ای */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            direction: rtl;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555555;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>فرم ثبت پروژه</h1>
-    <form id="projectForm" onsubmit="redirectToTelegram(event)">
-        <label for="projectName">نام پروژه:</label><br>
-        <input type="text" id="projectName" name="projectName" required><br><br>
+    <div class="form-container">
+        <h1>فرم ثبت پروژه</h1>
+        <form id="projectForm" onsubmit="redirectToTelegram(event)">
+            <label for="firstName">نام:</label>
+            <input type="text" id="firstName" name="firstName" required>
 
-        <label for="projectDescription">توضیحات پروژه:</label><br>
-        <textarea id="projectDescription" name="projectDescription" rows="4" cols="50" required></textarea><br><br>
+            <label for="lastName">نام خانوادگی:</label>
+            <input type="text" id="lastName" name="lastName" required>
 
-        <label for="contactInfo">اطلاعات تماس:</label><br>
-        <input type="text" id="contactInfo" name="contactInfo" required><br><br>
+            <label for="projectName">نام پروژه:</label>
+            <input type="text" id="projectName" name="projectName" required>
 
-        <button type="submit">ارسال به تلگرام</button>
-    </form>
+            <label for="projectDescription">توضیحات پروژه:</label>
+            <textarea id="projectDescription" name="projectDescription" rows="4" required></textarea>
+
+            <label for="contactInfo">اطلاعات تماس:</label>
+            <input type="text" id="contactInfo" name="contactInfo" required>
+
+            <button type="submit">ارسال به تلگرام</button>
+        </form>
+    </div>
 
     <script>
         function redirectToTelegram(event) {
             event.preventDefault(); // جلوگیری از ارسال فرم به صورت عادی
 
             // دریافت اطلاعات فرم
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
             const projectName = document.getElementById('projectName').value;
             const projectDescription = document.getElementById('projectDescription').value;
             const contactInfo = document.getElementById('contactInfo').value;
 
             // ساخت متن پیام
-            const message = `نام پروژه: ${projectName}\nتوضیحات پروژه: ${projectDescription}\nاطلاعات تماس: ${contactInfo}`;
+            const message = `نام: ${firstName}\nنام خانوادگی: ${lastName}\nنام پروژه: ${projectName}\nتوضیحات پروژه: ${projectDescription}\nاطلاعات تماس: ${contactInfo}`;
 
             // نام کاربری تلگرام شما
             const telegramUsername = "farzinfarazmand"; // نام کاربری خود را وارد کنید
