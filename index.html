@@ -79,6 +79,23 @@
             margin-top: -10px;
             margin-bottom: 10px;
         }
+
+        /* استایل بخش رادیویی */
+        .radio-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .radio-group label {
+            margin-right: 10px;
+            font-size: 14px;
+            color: #555555;
+        }
+
+        .radio-group input[type="radio"] {
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -100,6 +117,13 @@
             <label for="contactInfo">اطلاعات تماس:</label>
             <input type="text" id="contactInfo" name="contactInfo" required>
 
+            <!-- بخش انتخاب نوع پروژه -->
+            <div class="radio-group">
+                <label>نوع پروژه:</label>
+                <label><input type="radio" name="projectType" value="image" required> ساخت عکس با هوش مصنوعی</label>
+                <label><input type="radio" name="projectType" value="video" required> ساخت ویدیو با هوش مصنوعی</label>
+            </div>
+
             <button type="submit">ارسال به تلگرام</button>
         </form>
     </div>
@@ -115,8 +139,11 @@
             const projectDescription = document.getElementById('projectDescription').value;
             const contactInfo = document.getElementById('contactInfo').value;
 
+            // دریافت نوع پروژه از گزینه‌های رادیویی
+            const projectType = document.querySelector('input[name="projectType"]:checked').value;
+
             // ساخت متن پیام
-            const message = `نام: ${firstName}\nنام خانوادگی: ${lastName}\nنام پروژه: ${projectName}\nتوضیحات پروژه: ${projectDescription}\nاطلاعات تماس: ${contactInfo}`;
+            const message = `نام: ${firstName}\nنام خانوادگی: ${lastName}\nنام پروژه: ${projectName}\nتوضیحات پروژه: ${projectDescription}\nاطلاعات تماس: ${contactInfo}\nنوع پروژه: ${projectType === 'image' ? 'ساخت عکس با هوش مصنوعی' : 'ساخت ویدیو با هوش مصنوعی'}`;
 
             // نام کاربری تلگرام شما
             const telegramUsername = "farzinfarazmand"; // نام کاربری خود را وارد کنید
