@@ -67,10 +67,19 @@
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-bottom: 10px; /* فاصله بین دکمه‌ها */
         }
 
         button:hover {
             background-color: #0056b3;
+        }
+
+        .eitaa-button {
+            background-color: #4caf50; /* رنگ متفاوت برای دکمه ایتا */
+        }
+
+        .eitaa-button:hover {
+            background-color: #43a047; /* رنگ تیره‌تر برای هاور */
         }
 
         .error {
@@ -83,8 +92,8 @@
         /* طراحی حرفه‌ای برای بخش رادیویی */
         .radio-group {
             display: flex;
-            flex-direction: column; /* قرار دادن گزینه‌ها در ستون */
-            gap: 15px; /* فاصله بین گزینه‌ها */
+            flex-direction: column;
+            gap: 15px;
             margin-bottom: 20px;
         }
 
@@ -135,7 +144,7 @@
 <body>
     <div class="form-container">
         <h1>فرم ثبت پروژه</h1>
-        <form id="projectForm" onsubmit="redirectToTelegram(event)">
+        <form id="projectForm">
             <label for="firstName">نام:</label>
             <input type="text" id="firstName" name="firstName" required>
 
@@ -157,14 +166,15 @@
                 <label><input type="radio" name="projectType" value="video" required> ساخت ویدیو با هوش مصنوعی</label>
             </div>
 
-            <button type="submit">ارسال به تلگرام</button>
+            <!-- دکمه‌های ارسال -->
+            <button type="button" onclick="redirectToTelegram()">ارسال به تلگرام</button>
+            <button type="button" class="eitaa-button" onclick="redirectToEitaa()">ارسال به ایتا</button>
         </form>
     </div>
 
     <script>
-        function redirectToTelegram(event) {
-            event.preventDefault(); // جلوگیری از ارسال فرم به صورت عادی
-
+        // تابع ارسال به تلگرام
+        function redirectToTelegram() {
             // دریافت اطلاعات فرم
             const firstName = document.getElementById('firstName').value;
             const lastName = document.getElementById('lastName').value;
@@ -186,6 +196,31 @@
 
             // هدایت کاربر به صفحه چت تلگرام
             window.location.href = telegramLink;
+        }
+
+        // تابع ارسال به ایتا
+        function redirectToEitaa() {
+            // دریافت اطلاعات فرم
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const projectName = document.getElementById('projectName').value;
+            const projectDescription = document.getElementById('projectDescription').value;
+            const contactInfo = document.getElementById('contactInfo').value;
+
+            // دریافت نوع پروژه از گزینه‌های رادیویی
+            const projectType = document.querySelector('input[name="projectType"]:checked').value;
+
+            // ساخت متن پیام
+            const message = `نام: ${firstName}\nنام خانوادگی: ${lastName}\nنام پروژه: ${projectName}\nتوضیحات پروژه: ${projectDescription}\nاطلاعات تماس: ${contactInfo}\nنوع پروژه: ${projectType === 'image' ? 'ساخت عکس با هوش مصنوعی' : 'ساخت ویدیو با هوش مصنوعی'}`;
+
+            // نام کاربری ایتا شما
+            const eitaaUsername = "@faraztechno"; // نام کاربری ایتا خود را وارد کنید
+
+            // ساخت لینک ایتا
+            const eitaaLink = `https://eitaa.com/${eitaaUsername}?text=${encodeURIComponent(message)}`;
+
+            // هدایت کاربر به صفحه چت ایتا
+            window.location.href = eitaaLink;
         }
     </script>
 </body>
