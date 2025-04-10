@@ -2,7 +2,7 @@
 <html lang="fa">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>صفحه چت هوشمند</title>
     <style>
         body {
@@ -42,6 +42,7 @@
             padding: 10px;
             border-bottom: 1px solid #333;
             scroll-behavior: smooth;
+            overflow-anchor: none; /* جلوگیری از مشکلات اسکرول */
         }
         .message {
             display: flex;
@@ -115,6 +116,12 @@
             .logo img {
                 width: 100px;
                 height: 100px;
+            }
+            .input-box input {
+                font-size: 14px;
+            }
+            .input-box button {
+                font-size: 14px;
             }
         }
     </style>
@@ -192,7 +199,11 @@
             }
 
             chatBox.appendChild(messageDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // اسکرول روان به آخرین پیام
+            requestAnimationFrame(() => {
+                chatBox.scrollTop = chatBox.scrollHeight;
+            });
         }
     </script>
 </body>
